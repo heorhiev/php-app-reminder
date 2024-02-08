@@ -2,18 +2,30 @@
 
 namespace app\reminder\controllers\console;
 
+use app\reminder\config\TelegramBotDto;
 use app\reminder\repository\DutyLine;
-use app\reminder\bot\Bot;
+use app\toolkit\services\SettingsService;
+use TelegramBot\Api\BotApi;
 
 
 class DutyRosterNotifyController implements \app\toolkit\components\controllers\ConsoleControllerInterface
 {
     public function main(): void
     {
-        $bot = new Bot('telegram');
+        $current = (new DutyLine)->getCurrent();
 
-        $message = $bot->getNewMessage()->setMessageText('hello');
+        /** @var TelegramBotDto $options */
+        $options = SettingsService::load('telegram', TelegramBotDto::class);
 
-        $bot->sendMessage($message, 646946073);
+        if ($current) {
+            $chatId = $options->chatId;
+            $message[] = 'Сегодня дежурен ' . $current[0];
+            $message[] = 'День дежурста: ' . (empty($current[0]) ? 1 : 2);
+        } else {
+            $chatId = $options->adminChatId;
+            $message[] = 'Ошибка';
+        }
+
+        (new BotApi($options->token))->sendMessage($chatId, join(PHP_EOL, $message));
     }
 }
