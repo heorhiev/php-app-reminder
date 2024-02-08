@@ -1,9 +1,26 @@
 {
+  "name": "heorhiev/php-app-reminder",
+  "authors": [
+    {
+      "name": "Ruslan",
+      "email": "work.ruslan.georgiev@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
   "require": {
+    "php": ">=7.2",
+    "telegram-bot/api": "^2.4",
     "heorhiev/php-app-toolkit": "dev-master",
     "heorhiev/php-app-google-sheets": "dev-master"
   },
-  "minimum-stability": "dev",
+  "extra": {
+    "bootstrap": "heorhiev\\php-app-reminder\\Bootstrap"
+  },
+  "autoload": {
+    "psr-4": {
+      "app\\clientsBot\\": "src"
+    }
+  },
   "repositories": [
     {
       "type": "vcs",
