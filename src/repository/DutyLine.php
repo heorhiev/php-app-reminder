@@ -36,7 +36,7 @@ class DutyLine
     {
         $current = $this->getCurrent();
 
-        if (empty($current[2])) {
+        if (!empty($current[0]) && empty($current[2])) {
             return $current;
         }
 
@@ -54,7 +54,7 @@ class DutyLine
     {
         $next = $this->getNext();
 
-        foreach ($this->getList() as $key => $item) {
+        foreach ($this->getList(true) as $key => $item) {
             if ($next == $item) {
                 break;
             }
@@ -73,14 +73,17 @@ class DutyLine
     public function reset()
     {
         foreach ($this->getList() as $key => $item) {
-            if (empty($item[0])) {
+            if (empty($item)) {
                 return;
             }
 
             $item[1] = '';
             $item[2] = '';
+
             $this->googleSheet->update($key + 1, $item);
         }
+
+        $this->list = null;
     }
 
 
