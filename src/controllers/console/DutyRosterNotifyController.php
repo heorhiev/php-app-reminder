@@ -20,7 +20,7 @@ class DutyRosterNotifyController implements \app\toolkit\components\controllers\
         if ($current) {
             $chatId = $options->chatId;
             $message[] = 'Сегодня дежурен ' . $current[0];
-            $message[] = 'День дежурста: ' . (empty($current[0]) ? 1 : 2);
+            $message[] = 'День дежурста ' . (empty($current[0]) ? 'первый' : 'второй');
         } else {
             $chatId = $options->adminChatId;
             $message[] = 'Ошибка';
