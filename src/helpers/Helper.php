@@ -29,7 +29,7 @@ class Helper
             $chatId = $options->chatId;
             $message[] = 'Сегодня дежурен ' . $current[0];
             $message[] = 'День дежурста ' . (empty($current[0]) ? 'первый' : 'второй');
-            $message[] = "\nПожалуйста, не забывайте выносить мусор!";
+            $message[] = "\nПожалуйста, выносим мусор!";
         } else {
             $chatId = $options->adminChatId;
             $message[] = 'Ошибка';
