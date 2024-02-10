@@ -9,7 +9,7 @@ use app\toolkit\services\SettingsService;
 use TelegramBot\Api\BotApi;
 
 
-class DutyRosterNotifyController implements \app\toolkit\components\controllers\ConsoleControllerInterface
+class DutyNotifyController implements \app\toolkit\components\controllers\ConsoleControllerInterface
 {
     public function main(): void
     {
