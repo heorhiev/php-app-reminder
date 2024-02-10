@@ -3,6 +3,7 @@
 namespace app\reminder\controllers\console;
 
 use app\reminder\config\TelegramBotDto;
+use app\reminder\helpers\Helper;
 use app\reminder\repository\DutyLine;
 use app\toolkit\services\SettingsService;
 use TelegramBot\Api\BotApi;
@@ -12,6 +13,10 @@ class DutyRosterNotifyController implements \app\toolkit\components\controllers\
 {
     public function main(): void
     {
+        if (!Helper::currentDayIsWorkDay()) {
+            return;
+        }
+
         $current = (new DutyLine)->getCurrent();
 
         /** @var TelegramBotDto $options */
