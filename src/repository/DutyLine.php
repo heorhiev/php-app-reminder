@@ -11,12 +11,12 @@ class DutyLine
 {
     protected $gogleSheet;
     protected $list;
+    protected $settings;
 
     public function __construct()
     {
-        $this->googleSheet = new GoogleSheet(
-            SettingsService::load('reminder/duty_line', GoogleSheetDto::class)
-        );
+        $this->settings = SettingsService::load('reminder/duty_line', GoogleSheetDto::class);
+        $this->googleSheet = new GoogleSheet($this->settings);
     }
 
 
@@ -94,5 +94,11 @@ class DutyLine
         }
 
         return $this->list;
+    }
+
+
+    public function getSettings()
+    {
+        return $this->settings;
     }
 }

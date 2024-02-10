@@ -4,6 +4,7 @@ namespace app\reminder\helpers;
 
 
 use app\reminder\config\TelegramBotDto;
+use app\reminder\repository\DutyLine;
 use app\toolkit\services\SettingsService;
 use TelegramBot\Api\BotApi;
 
@@ -13,12 +14,11 @@ class Helper
 
     public static function currentDayIsWorkDay(): bool
     {
-        return true;
         return in_array(date('w'), self::WORK_DAYS);
     }
 
 
-    public static function notify($line)
+    public static function notify(DutyLine $line)
     {
         $current = $line->getCurrent();
 
@@ -29,12 +29,24 @@ class Helper
             $chatId = $options->chatId;
             $message[] = 'Сегодня дежурен ' . $current[0];
             $message[] = 'День дежурста ' . (empty($current[0]) ? 'первый' : 'второй');
-            $message[] = "\nПожалуйста, выносим мусор!";
+            $message[] = "\nПожалуйста, не забывайте выносить мусор!";
         } else {
             $chatId = $options->adminChatId;
             $message[] = 'Ошибка';
         }
 
-        (new BotApi($options->token))->sendMessage($chatId, join(PHP_EOL, $message));
+        $keyboard = new \TelegramBot\Api\Types\Inline\InlineKeyboardMarkup([[[
+            'text' => 'Таблица дежурств',
+            'url' => $line->getSettings()->spreadsheetsUrl,
+        ]]]);
+
+        (new BotApi($options->token))->sendMessage(
+            $chatId,
+            join(PHP_EOL, $message),
+            null,
+            false,
+            null,
+            $keyboard
+        );
     }
 }
