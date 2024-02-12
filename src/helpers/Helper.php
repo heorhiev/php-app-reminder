@@ -27,7 +27,7 @@ class Helper
 
         if ($current) {
             $chatId = $options->chatId;
-            $message[] = 'Сегодня дежурен ' . $current[0];
+            $message[] = 'Сегодня дежурный ' . $current[0];
             $message[] = 'День дежурста ' . (empty($current[1]) ? 'первый' : 'второй');
             $message[] = "\nПожалуйста, не забывайте выносить мусор!";
         } else {
