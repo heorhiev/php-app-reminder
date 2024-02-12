@@ -4,6 +4,7 @@ namespace app\reminder\helpers;
 
 
 use app\reminder\config\TelegramBotDto;
+use app\reminder\models\User;
 use app\reminder\repository\DutyLine;
 use app\toolkit\services\SettingsService;
 use TelegramBot\Api\BotApi;
@@ -26,9 +27,10 @@ class Helper
         $options = SettingsService::load('telegram', TelegramBotDto::class);
 
         if ($current) {
+            $user = new User($current);
             $chatId = $options->chatId;
-            $message[] = 'Сегодня дежурный ' . $current[0];
-            $message[] = 'День дежурста ' . (empty($current[1]) ? 'первый' : 'второй');
+            $message[] = 'Сегодня дежурный ' . $user->name;
+            $message[] = 'День дежурста ' . ($user->day == 1 ? 'первый' : 'второй');
             $message[] = "\nПожалуйста, не забывайте выносить мусор!";
         } else {
             $chatId = $options->adminChatId;
