@@ -30,7 +30,7 @@ class Helper
             $user = new User($current);
             $chatId = $options->chatId;
             $message[] = 'Сегодня дежурный ' . $user->name;
-            $message[] = 'День дежурста ' . ($user->day == 1 ? 'первый' : 'второй');
+            $message[] = 'День дежурства ' . ($user->day == 1 ? 'первый' : 'второй');
             $message[] = "\nПожалуйста, не забывайте выносить мусор!";
         } else {
             $chatId = $options->adminChatId;
