@@ -8,6 +8,7 @@ use app\reminder\models\User;
 use app\reminder\repository\DutyLine;
 use app\toolkit\services\SettingsService;
 use TelegramBot\Api\BotApi;
+use TelegramBot\Api\Types\Inline\InlineKeyboardMarkup;
 
 class Helper
 {
@@ -37,7 +38,7 @@ class Helper
             $message[] = 'Ошибка';
         }
 
-        $keyboard = new \TelegramBot\Api\Types\Inline\InlineKeyboardMarkup([[[
+        $keyboard = new InlineKeyboardMarkup([[[
             'text' => 'Таблица дежурств',
             'url' => $line->getSettings()->spreadsheetsUrl,
         ]]]);
