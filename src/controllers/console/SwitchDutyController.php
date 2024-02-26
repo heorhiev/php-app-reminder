@@ -9,17 +9,16 @@ use app\reminder\repository\DutyLine;
 class SwitchDutyController implements \app\toolkit\components\controllers\ConsoleControllerInterface
 {
 
-
     public function main(): void
     {
         if (Helper::currentDayIsWorkDay()) {
             $dutyLine = new DutyLine();
 
-            if (!$dutyLine->getCurrent()) {
-                $dutyLine->reset();
-            }
-
             $dutyLine->setNext();
+        }
+
+        if (!$dutyLine->getCurrent()) {
+            $dutyLine->reset();
         }
     }
 }
