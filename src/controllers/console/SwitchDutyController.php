@@ -11,9 +11,9 @@ class SwitchDutyController implements \app\toolkit\components\controllers\Consol
 
     public function main(): void
     {
+        $dutyLine = new DutyLine();
+        
         if (Helper::currentDayIsWorkDay()) {
-            $dutyLine = new DutyLine();
-
             $dutyLine->setNext();
         }
 
